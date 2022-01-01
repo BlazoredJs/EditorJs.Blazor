@@ -1,0 +1,32 @@
+﻿@using Models
+@inject EditorJsInterop _editorJs
+<div id="123">
+
+</div>
+
+@code {
+
+    private EditorJsModel _editor = new EditorJsModel
+    {
+        HolderId ="123",
+        Tools = new EditorToolsModel
+        {
+            Header = new EditorHeaderModel
+            {
+                Class = "MyEditor",
+                InlineToolbar = true
+            }
+        }
+        , AutoFocus = false
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(1000);
+           await _editorJs.CreateEditor(_editor);
+        }
+    }
+
+}
